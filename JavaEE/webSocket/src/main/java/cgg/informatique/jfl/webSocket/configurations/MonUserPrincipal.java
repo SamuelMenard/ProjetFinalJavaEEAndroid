@@ -48,16 +48,4 @@ public class MonUserPrincipal implements UserDetails {
                 '}';
     }
 
-    private String  username;
-    private String  fullname;
-    private String  password;
-
-    //Valeurs de 1 à 10. Utilisé lors des combats.
-    private int     talent;
-    //Valeurs de 1 à 10. Utilisé lors des combats.
-    private int     entrainement;
-    //Valeurs de 1 à 10. Utilisé lors des examens.
-    private int     chouchou;
-
-    private Long    anciendepuis;
 }

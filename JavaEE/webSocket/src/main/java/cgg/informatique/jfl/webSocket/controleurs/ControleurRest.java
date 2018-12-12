@@ -54,7 +54,7 @@ public class ControleurRest {
         if (optEvaluateur.isPresent() && optEvalue.isPresent()){
             int noCeintureCourrante = optEvalue.get().getGroupe().getId();
 
-            if (noCeintureCourrante < 7 && optEvalue.get().getPoints() >= 100 && optEvalue.get().getCredits(combatDao) >= 10){
+            if (noCeintureCourrante < 7 && optEvalue.get().getPoints() >= 100 && optEvalue.get().getCredits() >= 10){
                 Date aujourdhui = new Date();
                 Long date = aujourdhui.getTime();
                 Examen exam = new Examen(date, true);
@@ -88,7 +88,7 @@ public class ControleurRest {
 
         if (optEvaluateur.isPresent() && optEvalue.isPresent()){
             int noCeintureCourrante = optEvalue.get().getGroupe().getId();
-            if (noCeintureCourrante < 7 && optEvalue.get().getPoints() >= 100 && optEvalue.get().getCredits(combatDao) >= 10){
+            if (noCeintureCourrante < 7 && optEvalue.get().getPoints() >= 100 && optEvalue.get().getCredits() >= 10){
                 Date aujourdhui = new Date();
                 Long date = aujourdhui.getTime();
                 Examen exam = new Examen(date, false);
@@ -125,7 +125,7 @@ public class ControleurRest {
         if (opt.isPresent()){
             Compte c = opt.get();
             int points = c.getPoints();
-            int credits = c.getCredits(combatDao);
+            int credits = c.getCredits();
 
 
             lstInfos.add(c.getUsername());
@@ -277,7 +277,7 @@ public class ControleurRest {
         if (optUtilisateur.isPresent()){
             int noRole = optUtilisateur.get().getRole().getId();
             if (noRole == 1){
-                if (optUtilisateur.get().getNbCombats() >= 30 && optUtilisateur.get().getCredits(combatDao) >= 10){
+                if (optUtilisateur.get().getNbCombatsArbitres() >= 30 && optUtilisateur.get().getCredits() >= 10){
                     optUtilisateur.get().setRole(roleDao.findById(noRole + 1).get());
                     compteDao.saveAndFlush(optUtilisateur.get());
                     return HttpStatus.OK;

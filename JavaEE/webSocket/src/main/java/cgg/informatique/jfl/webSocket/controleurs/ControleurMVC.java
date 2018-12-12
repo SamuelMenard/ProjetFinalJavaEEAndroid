@@ -69,7 +69,7 @@ public class ControleurMVC {
         List<Compte> comptes = this.compteDao.findAll();
 
         for (Compte cpt : comptes){
-            if (cpt.getPoints() >= 100 && cpt.getCredits(this.combatDao) >= 10){
+            if (cpt.getPoints() >= 100 && cpt.getCredits() >= 10){
                 if (cpt.getRole().getRole().compareToIgnoreCase("SENSEI") != 0 && cpt.getRole().getRole().compareToIgnoreCase("VENERABLE") != 0){
                     if (cpt.getGroupe().getGroupe().compareToIgnoreCase("NOIR") != 0){
                         lstAdmissibles.add(cpt);
@@ -83,7 +83,7 @@ public class ControleurMVC {
                 }
             }
 
-            if (cpt.getNbCombats() >= 30 && cpt.getCredits(this.combatDao) >= 10){
+            if (cpt.getNbCombatsArbitres() >= 30 && cpt.getCredits() >= 10){
                 if (cpt.getRole().getRole().compareToIgnoreCase("NOUVEAU") == 0){
                     lstDevenirAncien.add(cpt);
                 }
