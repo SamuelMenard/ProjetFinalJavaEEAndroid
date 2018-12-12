@@ -1,0 +1,114 @@
+.main-div {
+    background: #ffffff none repeat scroll 0 0;
+    border-radius: 2px;
+    margin: 10px auto 30px;
+    max-width: 50%;
+    padding: 50px 70px 70px 71px;
+}
+
+.login-form{ text-align:center;}
+
+.centerText {
+    text-align: center;
+}
+
+.baseBackground {
+    background-color: darksalmon;
+}
+
+.titlebgimg {
+    margin-top: 20px;
+    background-image: url("images/karateimg.jpg"); /* The image used */
+    background-color: #cccccc; /* Used if the image is unavailable */
+    height: 180px; /* You must set a specified height */
+    background-position: center; /* Center the image */
+    background-repeat: repeat; /* Do not repeat the image */
+    background-size: contain; /* Resize the background image to cover the entire container */
+    color: white;
+    font-weight: bold;
+}
+
+.title-examen-img {
+    margin-top: 20px;
+    background-image: url("images/examen.jpeg"); /* The image used */
+    background-color: #cccccc; /* Used if the image is unavailable */
+    height: 180px; /* You must set a specified height */
+    background-position: center; /* Center the image */
+    background-repeat: repeat-x; /* Do not repeat the image */
+    background-size: contain; /* Resize the background image to cover the entire container */
+    color: black;
+    font-weight: bold;
+}
+
+.basewhite {
+    background-color: white;
+}
+
+.baseblack {
+    background-color: black;
+}
+
+.chaise {
+    background-image: url("images/chaise.jpg"); /* The image used */
+    background-color: #cccccc; /* Used if the image is unavailable */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover; /* Resize the background image to cover the entire container */
+}
+
+.tatami {
+    background-image: url("images/tatami.jpg"); /* The image used */
+    background-color: #cccccc; /* Used if the image is unavailable */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover; /* Resize the background image to cover the entire container */
+}
+
+.fixedsizeimg {
+    height: 85px;
+}
+
+.circle-image {
+    border-radius: 50%;
+}
+
+.seperate-image {
+    margin-right: 15px;
+    margin-bottom: 20px;
+}
+
+.base-top-margin {
+    margin-top: 20px;
+}
+
+.contour-div-ecole {
+    border: 2px solid;
+    border-radius: 5px;
+    border-color: #535853;
+    margin-top: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.verticalement-aligne {
+    padding-top: 25px;
+}
+
+.admissible-valide {
+    font-weight: normal;
+    color: green;
+}
+
+.admissible-non-valide {
+    font-weight: normal;
+    color: red;
+}
+
+.margin-left-td {
+    margin-left: 10px;
+}
+
+.titre-gagnant{
+    font-weight: bold;
+    font-size: 20px;
+}

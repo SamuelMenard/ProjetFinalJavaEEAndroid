@@ -295,7 +295,7 @@ public class Compte implements UserDetails {
         return points;
     }
 
-    public int getCredits(CombatDao combatDao){
+    public int getCredits(){
         /*
                 CALCULER LES CRÉDITS
          */
@@ -304,7 +304,7 @@ public class Compte implements UserDetails {
         if(this.getRole().getRole().equalsIgnoreCase("BLANC")){
             credits -= 10;
         }
-        for (Combat cb2 : combatDao.getMyCombats(this)){
+        for (Combat cb2 : this.arbitres){
             credits += cb2.getCreditsArbitre();
         }
         for (Examen e : this.getEvalues()){
@@ -337,7 +337,7 @@ public class Compte implements UserDetails {
 
 
 
-    public int getNbCombats(){
-        return this.rouges.size() + this.blancs.size();
+    public int getNbCombatsArbitres(){
+        return this.arbitres.size();
     }
 }

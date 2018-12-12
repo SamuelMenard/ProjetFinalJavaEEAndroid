@@ -20,7 +20,7 @@ public class SecuriteWebConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
+        /*http
                 //Modification pour REST
                 .csrf().disable()
                 .exceptionHandling()
@@ -41,29 +41,6 @@ public class SecuriteWebConfiguration extends WebSecurityConfigurerAdapter {
                 .failureHandler(new SimpleUrlAuthenticationFailureHandler())
                 .and()
                 .logout()
-                .and()
-                .csrf()
-                .ignoringAntMatchers("/**", "/" )//ne pas appliquer le CSRF pour /consoleBD
-                .and()
-                .headers()
-                .frameOptions()
-                .sameOrigin();
-
-                /* Ancienne version
-                 http
-                .authorizeRequests()
-
-                //Permettre l'accès à la console H2 uniquement au rôle ADMIN
-                .antMatchers("/kumite/**", "/kumite/").authenticated()
-                .antMatchers("/passageDeGrades/**", "/passageDeGrades/").hasAnyAuthority("SENSEI","VENERABLE")
-
-                .and()
-                //Activer le formulaire pour login
-                .formLogin()
-                .loginPage("/login")
-                .failureUrl("/login?error=true")
-                .and()
-                .logout()
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/dojo")
                 .and()
@@ -72,8 +49,24 @@ public class SecuriteWebConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .headers()
                 .frameOptions()
+                .sameOrigin();*/
+
+        http.authorizeRequests()
+                .antMatchers("/kumite/**", "/kumite/").authenticated()
+                .antMatchers("/examen/**", "/examen/").hasAnyAuthority("SENSEI", "VENERABLE")
+                .anyRequest().permitAll()
+                .and()
+//Activer le formulaire pour login
+                .formLogin()
+                .loginPage("/login")
+                .failureUrl("/login?error=true")
+//pour la console H2
+                .and()
+                .csrf()
+                .ignoringAntMatchers("/consoleBD/**").and()
+                .headers()
+                .frameOptions()
                 .sameOrigin();
-                */
     }
 
     //Initialiser la méthode pour s’identifier
