@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Ouverture de session</title>
+    <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/main.css" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script src="/exam.js"></script>
+</head>
+<body>
+
+<div id="main-content" class="container">
+
+    <div class="jumbotron centerText title-examen-img">
+        <h1>EXAMENS</h1>
+    </div>
+    <a th:href="@{/dojo}">Cliquer ici pour retourner au dojo</a>
+
+    <div class="row contour-div-ecole">
+        <div class="col-md-12 centerText"><h3>Listes des comptes admissibles à l'examen</h3></div>
+        <div class="col-md-12" th:each="admissible : ${lstAdmissibles}">
+
+            <div class="media">
+                <div class="media-left seperate-image">
+                    <img th:src="${admissible.getAvatar()}" class="media-object circle-image" style="width:80px">
+                </div>
+                <div class="media-body verticalement-aligne">
+                    <h4 class="media-heading">Points: <span th:text="${admissible.getPoints()}" class="admissible-valide"></span> | Crédits: <span th:text="${admissible.getCredits()}" class="admissible-valide"></span></h4>
+                    <p>
+                        <span th:text="${admissible.getAlias()}"></span>, <span th:text="${admissible.getRole()}"></span>, ceinture <span th:text="${admissible.getGroupe()}"></span>, utilisateur <span th:text="${admissible.getCourriel()}"></span>
+                    </p>
+                </div>
+            </div>
+
+            <table>
+                <tr>
+                    <td>
+                        <button  class="btn btn-default btn-sm" th:onclick="'examenReussi(\'' + ${admissible.getCourriel()} + '\')'">Ceinture suivante</button>
+                    </td>
+                    <td>
+                        <button  class="btn btn-default btn-sm" th:onclick="'examenEchoue(\'' + ${admissible.getCourriel()} + '\')'">Échouer examen</button>
+                    </td>
+                </tr>
+            </table>
+
+
+            <hr>
+        </div>
+
+    </div>
+
+    <div class="row contour-div-ecole">
+        <div class="col-md-12 centerText"><h3>Section de la honte...</h3></div>
+        <div class="col-md-12" th:each="honte : ${lstHontes}" >
+
+            <div class="media">
+                <div class="media-left seperate-image">
+                    <img th:src="${honte.getAvatar()}" class="media-object circle-image" style="width:80px">
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading">Points: <span th:text="${honte.getPoints()}" class="admissible-non-valide"></span> | Crédits: <span th:text="${honte.getCredits()}" class="admissible-non-valide"></span></h4>
+                    <p>
+                        <span th:text="${honte.getAlias()}"></span>, <span th:text="${honte.getRole()}"></span>, ceinture <span th:text="${honte.getGroupe()}"></span>, utilisateur <span th:text="${honte.getCourriel()}"></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row contour-div-ecole">
+        <div class="col-md-12 centerText"><h3>Admissible à la promotion d'ancien</h3></div>
+        <div class="col-md-12" th:each="futurancien : ${lstDevenirAncien}">
+
+            <div class="media">
+                <div class="media-left seperate-image">
+                    <img th:src="${futurancien.getAvatar()}" class="media-object circle-image" style="width:80px">
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading">Combats arbitrés: <span th:text="${futurancien.getNbcombats()}" class="admissible-valide"></span> | Crédits: <span th:text="${futurancien.getCredits()}" class="admissible-valide"></span></h4>
+                    <p>
+                        <span th:text="${futurancien.getAlias()}"></span>, <span th:text="${futurancien.getRole()}"></span>, ceinture <span th:text="${futurancien.getGroupe()}"></span>, utilisateur <span th:text="${futurancien.getCourriel()}"></span>
+                    </p>
+                </div>
+            </div>
+
+            <table>
+                <tr>
+                    <td>
+                        <button  class="btn btn-default btn-sm" th:onclick="'promouvoirAAncien(\'' + ${futurancien.getCourriel()} + '\')'">Promouvoir à ancien</button>
+                    </td>
+                </tr>
+            </table>
+
+
+            <hr>
+        </div>
+
+    </div>
+
+    <div class="row contour-div-ecole">
+        <div class="col-md-12 centerText"><h3>Admissible à la promotion de sensei</h3></div>
+        <div class="col-md-12" th:each="futursensei : ${lstDevenirSensei}">
+
+            <div class="media">
+                <div class="media-left seperate-image">
+                    <img th:src="${futursensei.getAvatar()}" class="media-object circle-image" style="width:80px">
+                </div>
+                <div class="media-body verticalement-aligne">
+                    <h4 class="media-heading"></h4>
+                    <p>
+                        <span th:text="${futursensei.getAlias()}"></span>, <span th:text="${futursensei.getRole()}"></span>, ceinture <span th:text="${futursensei.getGroupe()}"></span>, utilisateur <span th:text="${futursensei.getCourriel()}"></span>
+                    </p>
+                </div>
+            </div>
+
+            <table>
+                <tr>
+                    <td>
+                        <button  class="btn btn-default btn-sm" th:onclick="'promouvoirASensei(\'' + ${futursensei.getCourriel()} + '\')'">Promouvoir à sensei</button>
+                    </td>
+                </tr>
+            </table>
+
+
+            <hr>
+        </div>
+
+    </div>
+
+    <div class="row contour-div-ecole" sec:authorize="hasAuthority('VENERABLE')">
+        <div class="col-md-12 centerText"><h3>Rétrograder un sensei</h3></div>
+        <div class="col-md-12" th:each="retirersensei : ${lstRetirerSensei}">
+
+            <div class="media">
+                <div class="media-left seperate-image">
+                    <img th:src="${retirersensei.getAvatar()}" class="media-object circle-image" style="width:80px">
+                </div>
+                <div class="media-body verticalement-aligne">
+                    <h4 class="media-heading"></h4>
+                    <p>
+                        <span th:text="${retirersensei.getAlias()}"></span>, <span th:text="${retirersensei.getRole()}"></span>, ceinture <span th:text="${retirersensei.getGroupe()}"></span>, utilisateur <span th:text="${retirersensei.getCourriel()}"></span>
+                    </p>
+                </div>
+            </div>
+
+            <table>
+                <tr>
+                    <td>
+                        <button  class="btn btn-default btn-sm" th:onclick="'retirerSensei(\'' + ${retirersensei.getCourriel()} + '\')'">Rétrograder</button>
+                    </td>
+                </tr>
+            </table>
+
+
+            <hr>
+        </div>
+
+    </div>
+
+
+
+</div>
+</body>
+</html>

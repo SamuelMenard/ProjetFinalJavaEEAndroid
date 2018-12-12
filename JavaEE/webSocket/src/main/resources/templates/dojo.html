@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <title>Laboratoire 6: WebSocket</title>
+    <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/main.css" rel="stylesheet">
+
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+
+    <script src="/app.js"></script>
+</head>
+<body>
+<input type="hidden" id="courriel" th:value="${courriel}">
+<input type="hidden" id="alias" th:value="${alias}">
+<input type="hidden" id="role" th:value="${role}">
+<input type="hidden" id="groupe" th:value="${groupe}">
+<input type="hidden" id="avatar" th:value="${avatar}">
+
+<noscript><h2 style="color: #ff0000">Activer Javascript</h2></noscript>
+
+<div id="main-content" class="container">
+
+    <div class="base-top-margin">
+    <!-- Left-aligned media object -->
+    <div class="media">
+        <div class="media-left seperate-image">
+            <div sec:authorize="isAuthenticated()">
+                <img th:src="${avatar}" class="media-object circle-image" style="width:80px">
+            </div>
+            <div sec:authorize="isAnonymous()">
+                <img src="images/anonyme.png" class="media-object circle-image" style="width:80px">
+            </div>
+        </div>
+        <div class="media-body">
+            <h4 class="media-heading" th:text="${courriel}"></h4>
+            <p>
+                <span th:text="${alias}">domain</span>, <span th:text="${role}">domain</span>, ceinture <span th:text="${groupe}">domain</span>
+            </p>
+        </div>
+    </div>
+
+    <div sec:authorize="isAuthenticated()">
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Fin de la session" class="btn btn-default btn-sm"/>
+        </form>
+    </div>
+    <div sec:authorize="isAnonymous()">
+        <form th:action="@{/login}" method="post">
+            <input type="submit" value="Ouvrir une session" class="btn btn-default btn-sm"/>
+        </form>
+    </div>
+
+    <hr>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <button id="connexion" class="btn btn-default" type="submit">Établir la connexion</button>
+                <button id="deConnexion" class="btn btn-default" type="submit" disabled="disabled">Fermer la connexion</button>
+            </div>
+
+        </div>
+    </div>
+
+    <hr>
+
+        <a th:href="@{/ecole}">Cliquer ici pour voir les membres de notre école.</a>
+        <br/>
+        <a th:href="@{/kumite}" sec:authorize="isAuthenticated()">Cliquer ici pour accéder à la salle de kumite (identifié).</a>
+        <br/>
+        <a th:href="@{/examen}" sec:authorize="hasAnyAuthority('VENERABLE', 'SENSEI')" >Cliquer ici pour accéder à la salle d'examen (Sensei ou Vénérable).</a>
+
+<hr>
+
+    <div class="row" sec:authorize="isAuthenticated()">
+
+        <div class="col-md-1">
+            <button id="envoyer" class="btn btn-default" type="submit" disabled="disabled">Envoyer</button>
+        </div>
+        <div class="col-md-9">
+            <input id="texte" type="text" placeholder="Votre message" class="form-control" maxlength="50"/>
+        </div>
+        <div class="col-md-2">
+            <select class="btn-primary form-control" id="typemessage">
+            </select>
+        </div>
+    </div>
+    <br/>
+
+    <div class="row">
+        <div class="col-md-12">
+            <table id="conversation" class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Réponses</th>
+                </tr>
+                </thead>
+                <tbody id="reponses">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+</div>
+</body>
+</html>

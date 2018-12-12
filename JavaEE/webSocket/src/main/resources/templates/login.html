@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Ouverture de session</title>
+    <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/main.css" rel="stylesheet">
+</head>
+<body>
+
+<div id="main-content" class="container">
+    <div class="main-div " >
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="text-center">
+                    <h1>Ouverture de session</h1>
+                    <h2>Veuillez vous identifier</h2>
+                    <br/>
+
+
+
+                    <div th:if="${param.error}" class="alert alert-danger" >
+                        Utilisateur ou mot de passe invalide(s).
+                    </div>
+
+                    <form th:action="@{/login}" method="post">
+
+                        <div class="form-group">
+                            <input type="text" name="username" value="buster@debian.org" class="form-control centerText" placeholder="Utilisateur"/>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="password" name="password" value="Buster123" class="form-control centerText" placeholder="Mot de passe"/>
+                        </div>
+
+
+                        <input type="submit" value="Établir une session" class="btn btn-primary centerText"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
