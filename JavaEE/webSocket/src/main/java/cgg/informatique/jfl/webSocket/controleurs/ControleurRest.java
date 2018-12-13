@@ -1,5 +1,6 @@
 package cgg.informatique.jfl.webSocket.controleurs;
 
+import cgg.informatique.jfl.webSocket.Historique;
 import cgg.informatique.jfl.webSocket.Message;
 import cgg.informatique.jfl.webSocket.Reponse;
 import cgg.informatique.jfl.webSocket.dao.*;
@@ -41,6 +42,26 @@ public class ControleurRest {
 
     @Autowired
     RoleDao roleDao;
+
+    @GetMapping
+            (value = "/historique/{username}")
+    public List<Historique> retournerHistorique(@PathVariable String username){
+
+        Optional<Compte> opt = compteDao.findById(username);
+        List<Historique> lstInfos = new ArrayList<>();
+
+        if (opt.isPresent()){
+            Compte c = opt.get();
+            // générer l'historique
+            /*List<Combat> lstMesCombats = combatDao.getTousMesCombats(c);
+
+            for (Examen exam : c.getEvalues()){
+
+            }*/
+        }
+
+        return lstInfos;
+    }
 
     @GetMapping
             (value = "/examens/reussi/{evaluateur}/{evalue}")

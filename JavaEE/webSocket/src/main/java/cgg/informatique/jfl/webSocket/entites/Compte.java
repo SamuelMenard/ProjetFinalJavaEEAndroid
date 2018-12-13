@@ -273,11 +273,20 @@ public class Compte implements UserDetails {
         for (Combat cb : this.getBlancs()){
             if (dateDerniereExamenReussi != Long.MIN_VALUE){
                 if (cb.getDate() > dateDerniereExamenReussi){
-                    points += cb.getPointsBlanc();
+                    if (cb.getPointsBlanc() > cb.getPointsRouge()){
+                        // gagner
+                        points += this.calculerPointsCombat(cb.getRouge());
+                    }
+                    else if (cb.getPointsBlanc() == cb.getPointsRouge()){
+                        points += cb.getPointsBlanc();
+                    }
                 }
             }
             else{
-                points += cb.getPointsBlanc();
+                if (cb.getPointsBlanc() > cb.getPointsRouge()){
+                    // gagner
+                    points += this.calculerPointsCombat(cb.getRouge());
+                }
             }
         }
 
@@ -285,11 +294,20 @@ public class Compte implements UserDetails {
         for (Combat cb : this.getRouges()){
             if (dateDerniereExamenReussi != Long.MIN_VALUE){
                 if (cb.getDate() > dateDerniereExamenReussi){
-                    points += cb.getPointsRouge();
+                    if (cb.getPointsRouge() > cb.getPointsBlanc()){
+                        // gagner
+                        points += this.calculerPointsCombat(cb.getBlanc());
+                    }
+                    else if (cb.getPointsBlanc() == cb.getPointsRouge()){
+                        points += cb.getPointsRouge();
+                    }
                 }
             }
             else{
-                points += cb.getPointsRouge();
+                if (cb.getPointsRouge() > cb.getPointsBlanc()){
+                    // gagner
+                    points += this.calculerPointsCombat(cb.getRouge());
+                }
             }
         }
         return points;

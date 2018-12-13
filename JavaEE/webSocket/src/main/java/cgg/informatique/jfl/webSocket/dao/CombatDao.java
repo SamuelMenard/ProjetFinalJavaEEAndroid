@@ -13,4 +13,7 @@ public interface CombatDao extends JpaRepository<Combat, Integer> {
     @Query("SELECT C FROM Combat C where C.arbitre = :arbitre")
     public List<Combat> getMyCombats(@Param("arbitre") Compte arbitre);
 
+    @Query("SELECT C FROM Combat C where C.arbitre = :user or C.blanc = :user or C.rouge = :user")
+    public List<Combat> getTousMesCombats(@Param("user") Compte user);
+
 }
