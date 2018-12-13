@@ -7,9 +7,20 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
+    <!-- login fragment -->
     <string name="strTbInfoCeinture">N/A</string>
     <string name="strTbInfoGrade">N/A</string>
     <string name="strTbInfoPoints">N/A</string>
     <string name="strTbInfoCredits">N/A</string>
     <string name="strTbNomUtilisateur">Annonyme</string>
+
+    <!-- historique fragment -->
+    <string name="strTbNomHistorique">Annonyme</string>
+    <string name="strTbScrollable">N/A</string>
+
+    <!-- combat fragment-->
+    <string name="strTbNomCombat">Annonyme</string>
+    <string name="strTbPointsCombat">N/A</string>
+    <string name="strTbCreditsCombat">N/A</string>
+
 </resources>

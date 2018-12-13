@@ -17,10 +17,6 @@
             android:id="@+id/nav_zone_combat"
             android:icon="@drawable/ic_games_black_24dp"
             android:title="Zône de combat" />
-        <item
-            android:id="@+id/nav_visionner_combat"
-            android:icon="@drawable/ic_live_tv_black_24dp"
-            android:title="Visionner le combat" />
     </group>
 
 </menu>
