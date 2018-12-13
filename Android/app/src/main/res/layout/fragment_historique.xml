@@ -1,14 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:id="@+id/imageLogin2"
+        android:layout_width="180sp"
+        android:layout_height="180sp"
+        android:src="@drawable/nouser_avatar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.08"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.041" />
+
     <TextView
+        android:id="@+id/tbHistorique"
+        android:layout_width="538dp"
+        android:layout_height="600dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/textview_border"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:scrollbars="vertical"
+        android:text="@string/strTbScrollable"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageLogin2"
+        app:layout_constraintVertical_bias="0.145" />
+
+    <TextView
+        android:id="@+id/historique"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Dans historique"
-        android:textSize="30sp"
-        android:layout_centerInParent="true"
-        />
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Historique"
+        android:textSize="50sp"
+        app:layout_constraintBottom_toTopOf="@+id/tbHistorique"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.518"
+        app:layout_constraintStart_toEndOf="@+id/imageLogin2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.35" />
 
+    <TextView
+        android:id="@+id/tbNomHistorique"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/strTbNomHistorique"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toTopOf="@+id/tbHistorique"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.508"
+        app:layout_constraintStart_toEndOf="@+id/imageLogin2"
+        app:layout_constraintTop_toBottomOf="@+id/historique"
+        app:layout_constraintVertical_bias="0.14" />
 </android.support.constraint.ConstraintLayout>
