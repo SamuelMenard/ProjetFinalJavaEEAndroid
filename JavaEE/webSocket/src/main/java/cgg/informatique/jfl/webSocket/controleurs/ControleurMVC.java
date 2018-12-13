@@ -59,7 +59,7 @@ public class ControleurMVC {
     }
 
     @RequestMapping(value = "/examen", method = RequestMethod.GET)
-    public String examen(Map<String, Object> model) {
+    public String examen(@Autowired Authentication auth, Map<String, Object> model) {
         List<Compte> lstAdmissibles = new ArrayList<>();
         List<Compte> lstHontes = new ArrayList<>();
         List<Compte> lstDevenirAncien = new ArrayList<>();
@@ -67,6 +67,17 @@ public class ControleurMVC {
         List<Compte> lstRetirerSensei = new ArrayList<>();
 
         List<Compte> comptes = this.compteDao.findAll();
+
+        if (auth != null){
+            UserDetails details = (UserDetails)auth.getPrincipal();
+
+            if (details != null){
+                Optional opt = compteDao.findById(details.getUsername());
+                Compte compte = (Compte)opt.get();
+
+                model.put("courriel_evaluateur", compte.getUsername());
+            }
+        }
 
         for (Compte cpt : comptes){
             if (cpt.getPoints() >= 100 && cpt.getCredits() >= 10){
@@ -105,6 +116,32 @@ public class ControleurMVC {
         model.put("lstRetirerSensei", lstRetirerSensei);
 
         return "examen";
+    }
+
+    @RequestMapping(value = "/kumite", method = RequestMethod.GET)
+    public String combat(@Autowired Authentication auth, Map<String, Object> model) {
+        if (auth != null){
+            UserDetails details = (UserDetails)auth.getPrincipal();
+
+            if (details != null){
+                Optional opt = compteDao.findById(details.getUsername());
+                Compte compte = (Compte)opt.get();
+                model.put("courriel", compte.getUsername());
+                model.put("fullname", compte.getFullname());
+                model.put("role", compte.getRole().getRole());
+                model.put("groupe", compte.getGroupe().getGroupe());
+                model.put("avatar", compte.getAvatar().getAvatar());
+            }
+        }
+        else{
+            model.put("courriel", "visiteur@visiteur.org");
+            model.put("fullname", "visiteur");
+            model.put("role", "aucun rôle");
+            model.put("groupe","aucun groupe");
+            model.put("avatar", "");
+        }
+
+        return "kumite";
     }
 
 }

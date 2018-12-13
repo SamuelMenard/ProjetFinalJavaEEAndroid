@@ -10,7 +10,6 @@
     <script src="/webjars/sockjs-client/sockjs.min.js"></script>
     <script src="/webjars/stomp-websocket/stomp.min.js"></script>
 
-    <script src="/app.js"></script>
 </head>
 <body>
 <input type="hidden" id="courriel" th:value="${courriel}">
@@ -54,54 +53,15 @@
     </div>
 
     <hr>
-
-    <div class="row">
-        <div class="col-md-12">
-            <div class="form-group">
-                <button id="connexion" class="btn btn-default" type="submit">Établir la connexion</button>
-                <button id="deConnexion" class="btn btn-default" type="submit" disabled="disabled">Fermer la connexion</button>
-            </div>
-
+        <div class="form-group">
+            <span class="titre-gagnant">Vos options</span>
         </div>
-    </div>
-
-    <hr>
-
-        <br/>
-        <a th:href="@{/kumite}" sec:authorize="isAuthenticated()">Cliquer ici pour accéder à la salle de kumite (identifié).</a>
+        <a th:href="@{/kumite}" sec:authorize="isAuthenticated()">Cliquer ici pour visualiser le combat en cours.</a>
         <br/>
         <a th:href="@{/examen}" sec:authorize="hasAnyAuthority('VENERABLE', 'SENSEI')" >Cliquer ici pour accéder à la salle d'examen (Sensei ou Vénérable).</a>
 
 <hr>
 
-    <div class="row" sec:authorize="isAuthenticated()">
-
-        <div class="col-md-1">
-            <button id="envoyer" class="btn btn-default" type="submit" disabled="disabled">Envoyer</button>
-        </div>
-        <div class="col-md-9">
-            <input id="texte" type="text" placeholder="Votre message" class="form-control" maxlength="50"/>
-        </div>
-        <div class="col-md-2">
-            <select class="btn-primary form-control" id="typemessage">
-            </select>
-        </div>
-    </div>
-    <br/>
-
-    <div class="row">
-        <div class="col-md-12">
-            <table id="conversation" class="table table-striped">
-                <thead>
-                <tr>
-                    <th>Réponses</th>
-                </tr>
-                </thead>
-                <tbody id="reponses">
-                </tbody>
-            </table>
-        </div>
-    </div>
     </div>
 </div>
 </body>

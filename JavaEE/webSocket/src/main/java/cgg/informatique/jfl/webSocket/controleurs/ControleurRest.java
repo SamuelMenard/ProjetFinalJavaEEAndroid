@@ -45,6 +45,7 @@ public class ControleurRest {
     @GetMapping
             (value = "/examens/reussi/{evaluateur}/{evalue}")
     public HttpStatus examenReussi(@PathVariable("evaluateur") String evaluateur, @PathVariable("evalue") String evalue){
+        System.out.print("dans examen reussi");
         List<String> lst = new ArrayList<>();
 
         // rajouter les autres infos
@@ -79,7 +80,7 @@ public class ControleurRest {
     @GetMapping
             (value = "/examens/echoue/{evaluateur}/{evalue}")
     public HttpStatus examenEchoue(@PathVariable("evaluateur") String evaluateur, @PathVariable("evalue") String evalue){
-
+        System.out.print("dans examen echoue");
         List<String> lst = new ArrayList<>();
 
         // rajouter les autres infos

@@ -51,7 +51,15 @@ public class SecuriteWebConfiguration extends WebSecurityConfigurerAdapter {
                 .frameOptions()
                 .sameOrigin();*/
 
-        http.authorizeRequests()
+        http
+                //Modification pour REST
+                .csrf().disable()
+                .exceptionHandling()
+                .authenticationEntryPoint(new RestAuthenticationEntryPoint())
+                .and()
+                .authorizeRequests()
+                .antMatchers("//**", "//").authenticated()
+                .antMatchers("/dojo/**", "/dojo/").authenticated()
                 .antMatchers("/kumite/**", "/kumite/").authenticated()
                 .antMatchers("/examen/**", "/examen/").hasAnyAuthority("SENSEI", "VENERABLE")
                 .anyRequest().permitAll()
@@ -60,6 +68,8 @@ public class SecuriteWebConfiguration extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login")
                 .failureUrl("/login?error=true")
+                .successHandler(new MySavedRequestAwareAuthenticationSuccessHandler())
+                .failureHandler(new SimpleUrlAuthenticationFailureHandler())
 //pour la console H2
                 .and()
                 .csrf()

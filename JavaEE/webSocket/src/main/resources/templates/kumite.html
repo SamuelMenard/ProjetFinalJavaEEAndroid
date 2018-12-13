@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Ouverture de session</title>
+    <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/main.css" rel="stylesheet">
+
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+
+    <script src="/combat.js"></script>
+</head>
+<body class="baseBackground">
+
+<div class="container">
+<input type="hidden" id="courriel" th:value="${courriel}">
+<input type="hidden" id="alias" th:value="${fullname}">
+<input type="hidden" id="role" th:value="${role}">
+<input type="hidden" id="groupe" th:value="${groupe}">
+<input type="hidden" id="avatar" th:value="${avatar}">
+
+    <a th:href="@{/dojo}">Cliquer ici pour retourner au dojo</a>
+
+
+    <h2>Les Spectateurs</h2>
+    <div class="row">
+        <div class="col-sm-1"><img src="images/chaise.jpg" alt="Chaise" id="spectateur_0" height="85px"></div>
+        <div class="col-sm-1"><img src="images/chaise.jpg" alt="Chaise" id="spectateur_1" height="85px"></div>
+        <div class="col-sm-1"><img src="images/chaise.jpg" alt="Chaise" id="spectateur_2" height="85px"></div>
+        <div class="col-sm-1"><img src="images/chaise.jpg" alt="Chaise" id="spectateur_3" height="85px"></div>
+        <div class="col-sm-1"><img src="images/chaise.jpg" alt="Chaise" id="spectateur_4" height="85px"></div>
+        <div class="col-sm-1"><img src="images/chaise.jpg" alt="Chaise" id="spectateur_5" height="85px"></div>
+        <div class="col-sm-1"><img src="images/chaise.jpg" alt="Chaise" id="spectateur_6" height="85px"></div>
+        <div class="col-sm-1"><img src="images/chaise.jpg" alt="Chaise" id="spectateur_7" height="85px"></div>
+        <div class="col-sm-1"><img src="images/chaise.jpg" alt="Chaise" id="spectateur_8" height="85px"></div>
+        <div class="col-sm-1"><img src="images/chaise.jpg" alt="Chaise" id="spectateur_9" height="85px"></div>
+        <div class="col-sm-1"><img src="images/chaise.jpg" alt="Chaise" id="spectateur_10" height="85px"></div>
+        <div class="col-sm-1"><img src="images/chaise.jpg" alt="Chaise" id="spectateur_11" height="85px"></div>
+    </div>
+
+    <h2>Les Compétiteurs En Attente D'un Combat</h2>
+    <div class="row">
+        <div class="col-sm-1"><img src="images/chaise.jpg" alt="Chaise" id="competiteur_0" height="85px"></div>
+        <div class="col-sm-1"><img src="images/chaise.jpg" alt="Chaise" id="competiteur_1" height="85px"></div>
+        <div class="col-sm-1"><img src="images/chaise.jpg" alt="Chaise" id="competiteur_2" height="85px"></div>
+        <div class="col-sm-1"><img src="images/chaise.jpg" alt="Chaise" id="competiteur_3" height="85px"></div>
+        <div class="col-sm-1"><img src="images/chaise.jpg" alt="Chaise" id="competiteur_4" height="85px"></div>
+        <div class="col-sm-1"><img src="images/chaise.jpg" alt="Chaise" id="competiteur_5" height="85px"></div>
+        <div class="col-sm-1"><img src="images/chaise.jpg" alt="Chaise" id="competiteur_6" height="85px"></div>
+        <div class="col-sm-1"><img src="images/chaise.jpg" alt="Chaise" id="competiteur_7" height="85px"></div>
+        <div class="col-sm-1"><img src="images/chaise.jpg" alt="Chaise" id="competiteur_8" height="85px"></div>
+        <div class="col-sm-1"><img src="images/chaise.jpg" alt="Chaise" id="competiteur_9" height="85px"></div>
+        <div class="col-sm-1"><img src="images/chaise.jpg" alt="Chaise" id="competiteur_10" height="85px"></div>
+        <div class="col-sm-1"><img src="images/chaise.jpg" alt="Chaise" id="competiteur_11" height="85px"></div>
+    </div>
+
+    <h2>La Surface De Combat</h2>
+    <div class="row">
+        <div class="col-sm-1"><img src="images/white_square.jpg" alt="Chaise" id="tapis_blanc" height="85px"></div>
+        <div class="col-sm-1"><img src="images/pas_attaque.png" alt="Chaise" id="tapis_attaque_blanc" height="85px"></div>
+        <div class="col-sm-1"><img src="images/tatami.jpg" alt="Chaise" height="85px"></div>
+        <div class="col-sm-1"><img src="images/tatami.jpg" alt="Chaise"  height="85px"></div>
+        <div class="col-sm-1"><img src="images/tatami.jpg" alt="Chaise" height="85px"></div>
+        <div class="col-sm-1"><img src="images/ying_yang.jpg" alt="Chaise" id="tapis_arbitre" height="85px"></div>
+        <div class="col-sm-1"><img src="images/tatami.jpg" alt="Chaise" height="85px"></div>
+        <div class="col-sm-1"><img src="images/tatami.jpg" alt="Chaise" height="85px"></div>
+        <div class="col-sm-1"><img src="images/tatami.jpg" alt="Chaise" height="85px"></div>
+        <div class="col-sm-1"><img src="images/tatami.jpg" alt="Chaise" height="85px"></div>
+        <div class="col-sm-1"><img src="images/pas_attaque.png" alt="Chaise" id="tapis_attaque_rouge" height="85px"></div>
+        <div class="col-sm-1"><img src="images/red_square.png" alt="Chaise" id="tapis_rouge" height="85px"></div>
+    </div>
+
+</div>
+</body>
+</html>
