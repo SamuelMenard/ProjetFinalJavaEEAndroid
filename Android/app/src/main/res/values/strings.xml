@@ -12,14 +12,15 @@
     <string name="strTbInfoGrade">N/A</string>
     <string name="strTbInfoPoints">N/A</string>
     <string name="strTbInfoCredits">N/A</string>
-    <string name="strTbNomUtilisateur">Annonyme</string>
+    <string name="app_spinner">Anonyme</string>
+    <string name="strBtnConnexion">Connexion</string>
 
     <!-- historique fragment -->
-    <string name="strTbNomHistorique">Annonyme</string>
+    <string name="strTbNomHistorique">Anonyme</string>
     <string name="strTbScrollable">N/A</string>
 
     <!-- combat fragment-->
-    <string name="strTbNomCombat">Annonyme</string>
+    <string name="strTbNomCombat">Anonyme</string>
     <string name="strTbPointsCombat">N/A</string>
     <string name="strTbCreditsCombat">N/A</string>
 

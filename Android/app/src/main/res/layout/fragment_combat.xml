@@ -209,7 +209,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageLogin_combat_3"
         app:layout_constraintVertical_bias="0.304"
-        app:srcCompat="@drawable/ic_games_black_24dp" />
+        app:srcCompat="@drawable/nomove" />
 
     <ImageView
         android:id="@+id/imageCoupBlanc"
@@ -222,7 +222,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageLogin_combat_2"
         app:layout_constraintVertical_bias="0.304"
-        app:srcCompat="@drawable/ic_games_black_24dp" />
+        app:srcCompat="@drawable/nomove" />
 
     <ImageView
         android:id="@+id/imageArbitre"
@@ -238,6 +238,6 @@
         app:layout_constraintStart_toEndOf="@+id/imageCoupBlanc"
         app:layout_constraintTop_toBottomOf="@+id/imageLogin_combat_1"
         app:layout_constraintVertical_bias="0.304"
-        app:srcCompat="@drawable/ic_games_black_24dp" />
+        app:srcCompat="@drawable/nomove" />
 
 </android.support.constraint.ConstraintLayout>
