@@ -38,10 +38,10 @@
             <table>
                 <tr>
                     <td>
-                        <button  class="btn btn-default btn-sm" th:onclick="'examenReussi(\'' + ${admissible.getUsername()} + '\')'">Ceinture suivante</button>
+                        <button  class="btn btn-default btn-sm" th:onclick="'examenReussi(\'' + ${admissible.getUsername()} + '\', \'' + ${courriel_evaluateur} + '\')'">Ceinture suivante</button>
                     </td>
                     <td>
-                        <button  class="btn btn-default btn-sm" th:onclick="'examenEchoue(\'' + ${admissible.getUsername()} + '\')'">Échouer examen</button>
+                        <button  class="btn btn-default btn-sm" th:onclick="'examenEchoue(\'' + ${admissible.getUsername()} + '\', \'' + ${courriel_evaluateur} + '\')'">Échouer examen</button>
                     </td>
                 </tr>
             </table>
@@ -70,95 +70,6 @@
         </div>
     </div>
 
-    <div class="row contour-div-ecole">
-        <div class="col-md-12 centerText"><h3>Admissible à la promotion d'ancien</h3></div>
-        <div class="col-md-12" th:each="futurancien : ${lstDevenirAncien}">
-
-            <div class="media">
-                <div class="media-left seperate-image">
-                    <img th:src="${futurancien.getAvatar().getAvatar()}" class="media-object circle-image" style="width:80px">
-                </div>
-                <div class="media-body">
-                    <h4 class="media-heading">Combats arbitrés: <span th:text="${futurancien.getNbCombatsArbitres()}" class="admissible-valide"></span> | Crédits: <span th:text="${futurancien.getCredits()}" class="admissible-valide"></span></h4>
-                    <p>
-                        <span th:text="${futurancien.getFullname()}"></span>, <span th:text="${futurancien.getRole().getRole()}"></span>, ceinture <span th:text="${futurancien.getGroupe().getGroupe()}"></span>, utilisateur <span th:text="${futurancien.getUsername()}"></span>
-                    </p>
-                </div>
-            </div>
-
-            <table>
-                <tr>
-                    <td>
-                        <button  class="btn btn-default btn-sm" th:onclick="'promouvoirAAncien(\'' + ${futurancien.getUsername()} + '\')'">Promouvoir à ancien</button>
-                    </td>
-                </tr>
-            </table>
-
-
-            <hr>
-        </div>
-
-    </div>
-
-    <div class="row contour-div-ecole">
-        <div class="col-md-12 centerText"><h3>Admissible à la promotion de sensei</h3></div>
-        <div class="col-md-12" th:each="futursensei : ${lstDevenirSensei}">
-
-            <div class="media">
-                <div class="media-left seperate-image">
-                    <img th:src="${futursensei.getAvatar().getAvatar()}" class="media-object circle-image" style="width:80px">
-                </div>
-                <div class="media-body verticalement-aligne">
-                    <h4 class="media-heading"></h4>
-                    <p>
-                        <span th:text="${futursensei.getFullname()}"></span>, <span th:text="${futursensei.getRole().getRole()}"></span>, ceinture <span th:text="${futursensei.getGroupe().getGroupe()}"></span>, utilisateur <span th:text="${futursensei.getCourriel()}"></span>
-                    </p>
-                </div>
-            </div>
-
-            <table>
-                <tr>
-                    <td>
-                        <button  class="btn btn-default btn-sm" th:onclick="'promouvoirASensei(\'' + ${futursensei.getUsername()} + '\')'">Promouvoir à sensei</button>
-                    </td>
-                </tr>
-            </table>
-
-
-            <hr>
-        </div>
-
-    </div>
-
-    <div class="row contour-div-ecole" sec:authorize="hasAuthority('VENERABLE')">
-        <div class="col-md-12 centerText"><h3>Rétrograder un sensei</h3></div>
-        <div class="col-md-12" th:each="retirersensei : ${lstRetirerSensei}">
-
-            <div class="media">
-                <div class="media-left seperate-image">
-                    <img th:src="${retirersensei.getAvatar().getAvatar()}" class="media-object circle-image" style="width:80px">
-                </div>
-                <div class="media-body verticalement-aligne">
-                    <h4 class="media-heading"></h4>
-                    <p>
-                        <span th:text="${retirersensei.getFullname()}"></span>, <span th:text="${retirersensei.getRole().getRole()}"></span>, ceinture <span th:text="${retirersensei.getGroupe().getGroupe()}"></span>, utilisateur <span th:text="${retirersensei.getCourriel()}"></span>
-                    </p>
-                </div>
-            </div>
-
-            <table>
-                <tr>
-                    <td>
-                        <button  class="btn btn-default btn-sm" th:onclick="'retirerSensei(\'' + ${retirersensei.getUsername()} + '\')'">Rétrograder</button>
-                    </td>
-                </tr>
-            </table>
-
-
-            <hr>
-        </div>
-
-    </div>
 
 
 
