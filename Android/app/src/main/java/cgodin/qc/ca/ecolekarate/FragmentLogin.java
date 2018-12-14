@@ -37,6 +37,7 @@ public class FragmentLogin extends Fragment implements AdapterView.OnItemSelecte
     private Button btnConnexion;
     public boolean connecte;
     private View myFragment;
+    //Chemin pour le serveur localhost qu'on roule avec intelliJ
     private String cheminServeur = "http://10.0.2.2:8098";
 
     @Nullable
@@ -44,7 +45,6 @@ public class FragmentLogin extends Fragment implements AdapterView.OnItemSelecte
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         myFragment = inflater.inflate(R.layout.fragment_login, container, false);
         btnConnexion = (Button) myFragment.findViewById(R.id.btnConnexion);
-        //btnConnexion = (Button) getView().findViewById((R.id.btnConnexion));
         btnConnexion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,12 +52,14 @@ public class FragmentLogin extends Fragment implements AdapterView.OnItemSelecte
             }
         });
         String url = cheminServeur + "/compte/all/username";
-        Log.d("Wack !!!!", "onCreateView: Salut ma belle julienne de carrotte");
         new GetAllUsername().execute(url);
         return myFragment;
     }
 
-
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -69,14 +71,19 @@ public class FragmentLogin extends Fragment implements AdapterView.OnItemSelecte
 
     }
 
+    /**
+     * Fonction qui est appelé lors d'un évènement click sur la bouton connexion
+     */
     public void connexion(){
         spinnerCompte = (Spinner) myFragment.findViewById(R.id.spinner);
         Log.d("Connexion", "onClick: Je tente de me connecter");
         if(spinnerCompte.isEnabled()){
 
             connecte = true;
-            btnConnexion.setText("Fermer la connexion");
-            spinnerCompte.setEnabled(false);
+            //btnConnexion.setText("Fermer la connexion");
+            VariableSession.btnConnexion = "Fermer la connexion";
+            //spinnerCompte.setEnabled(false);
+            VariableSession.booConnexion = false;
             String url = cheminServeur + "/compte/infos/base/" + spinnerCompte.getSelectedItem().toString();
             new GetCompteConnexion().execute(url);
             //startWebSocket();
@@ -86,9 +93,12 @@ public class FragmentLogin extends Fragment implements AdapterView.OnItemSelecte
         else{
 
             connecte = false;
-            btnConnexion.setText("Établir une connexion");
-            spinnerCompte.setEnabled(true);
+            //btnConnexion.setText("Établir une connexion");
+            VariableSession.btnConnexion = "Établir une connexion";
+            //spinnerCompte.setEnabled(true);
+            VariableSession.booConnexion = true;
             viderLesInformations();
+            remplirLesInformations();
             //stopWebSocket();
                    /* stomp.terminerStomp();
                     stompPrive.terminerStompPrive();
@@ -101,22 +111,82 @@ public class FragmentLogin extends Fragment implements AdapterView.OnItemSelecte
      * Vider les informations de connexion quand on se déconnecte.
      */
     public void viderLesInformations(){
+        VariableSession.Alias = "";
+        VariableSession.Credits = "";
+        VariableSession.Points = "";
+        VariableSession.grade = "";
+        VariableSession.ceinture = "";
+        VariableSession.base64 = "";
+    }
+
+    /**
+     * Cette fonction permet de remplir les infos de comptes à partir de la classe static.
+     */
+    public void remplirLesInformations(){
         TextView tvCeinture = (TextView) getView().findViewById((R.id.tbInfoCeinture));
         TextView tvGrade = (TextView) getView().findViewById((R.id.tbInfoGrade));
         TextView tvPoints = (TextView) getView().findViewById((R.id.tbInfoPoints));
         TextView tvCredits = (TextView) getView().findViewById((R.id.tbInfoCredits));
         TextView tvAlias = (TextView) getView().findViewById((R.id.tbInfoAlias));
         ImageView imageView = (ImageView) getView().findViewById(R.id.imageLogin);
+        Button btnConnexion2 = (Button) getView().findViewById(R.id.btnConnexion);
+        Spinner spinner2 = (Spinner) getView().findViewById(R.id.spinner);
 
-        tvCeinture.setText("");
-        tvGrade.setText("");
-        tvPoints.setText("");
-        tvCredits.setText("");
-        tvAlias.setText("");
 
-        imageView.setImageResource(R.drawable.nouser_avatar);
+        if(!VariableSession.ceinture.equals("")){
+            tvCeinture.setText(VariableSession.ceinture);
+        }
+        else{
+            tvCeinture.setText("N/A");
+        }
+
+        if(!VariableSession.grade.equals("")){
+            tvGrade.setText(VariableSession.grade);
+        }
+        else{
+            tvGrade.setText("N/A");
+        }
+
+        if(!VariableSession.Points.equals("")){
+            tvPoints.setText(VariableSession.Points);
+        }
+        else{
+            tvPoints.setText("N/A");
+        }
+
+        if(!VariableSession.Credits.equals("")){
+            tvCredits.setText(VariableSession.Credits);
+        }
+        else{
+            tvCredits.setText("N/A");
+        }
+
+        if(!VariableSession.Alias.equals("")){
+            tvAlias.setText(VariableSession.Alias);
+        }
+        else{
+            tvAlias.setText("N/A");
+        }
+
+        if(!VariableSession.base64.equals("")){
+            String pureBase64Encoded = VariableSession.base64.substring(VariableSession.base64.indexOf(",")  + 1);
+
+            byte[] imageAsBytes = Base64.decode(pureBase64Encoded.getBytes(), Base64.DEFAULT);
+            imageView.setImageBitmap(BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length));
+        }
+        else{
+            imageView.setImageResource(R.drawable.nouser_avatar);
+        }
+        btnConnexion2.setText(VariableSession.btnConnexion);
+        spinner2.setSelection(VariableSession.spinnerID);
+        spinner2.setEnabled(VariableSession.booConnexion);
+
     }
 
+    /**
+     * Tâches en background qui peremet de remplir le spinner avec la liste
+     * de tous les utilisateurs.
+     */
     public class GetAllUsername extends AsyncTask<String, Integer, String> {
         @Override
         protected void onPreExecute(){
@@ -177,9 +247,15 @@ public class FragmentLogin extends Fragment implements AdapterView.OnItemSelecte
             adapter.setDropDownViewResource(R.layout.spinner_item);
             // attaching data adapter to spinner
             spinner.setAdapter(adapter);
+            remplirLesInformations();
         }
     }
 
+    /**
+     * Cette classe interne nous permet d'aller chercher les informations de compte du compte sélectionner
+     * dans le spinner. De plus, elle remplis les zone de textes qui contiennent
+     * l'information sur l'utilisateur.
+     */
     public class GetCompteConnexion extends AsyncTask<String, Integer, String> {
         @Override
         protected void onPreExecute(){
@@ -227,33 +303,38 @@ public class FragmentLogin extends Fragment implements AdapterView.OnItemSelecte
             else{
                 try {
                     JSONArray lstComptes = new JSONArray(s.toString());
-                    //tv.setText(lstComptes.getString(6));
 
-                    //Aller chercher les composantes de l'interface qui servent à l'affichage d'information sur le compte.
-                    //TextView tvCourriel = (TextView) findViewById(R.id.tbC);
-                    TextView tvCeinture = (TextView) getView().findViewById((R.id.tbInfoCeinture));
-                    TextView tvGrade = (TextView) getView().findViewById((R.id.tbInfoGrade));
-                    TextView tvPoints = (TextView) getView().findViewById((R.id.tbInfoPoints));
-                    TextView tvCredits = (TextView) getView().findViewById((R.id.tbInfoCredits));
-                    TextView tvAlias = (TextView) getView().findViewById((R.id.tbInfoAlias));
-                    ImageView imageView = (ImageView) getView().findViewById(R.id.imageLogin);
+                    Spinner spinner = (Spinner) getView().findViewById(R.id.spinner);
 
                     //Remplir les informations de la personne sélectionnée
                     //tvCourriel.setText(lstComptes.getString(0));
                     //pwd = lstComptes.getString(1);
-                    tvAlias.setText(lstComptes.getString(2));
-                    String base = lstComptes.getString(3).trim();
-                    tvCeinture.setText(lstComptes.getString(4));
-                    tvGrade.setText(lstComptes.getString(5));
-                    tvPoints.setText(lstComptes.getString(6));
-                    tvCredits.setText(lstComptes.getString(7));
 
-                    //Log.d("TEST", pwd);
+                    /*
+                    * Modifier les informations de connexion graphiquement et dans la classe de variable static.
+                    * */
+                    //tvAlias.setText(lstComptes.getString(2));
+                    VariableSession.Alias = lstComptes.getString(2);
+
+                    String base = lstComptes.getString(3).trim();
+                    VariableSession.base64 = base;
+
+                    //tvCeinture.setText(lstComptes.getString(4));
+                    VariableSession.ceinture = lstComptes.getString(4);
+
+                    //tvGrade.setText(lstComptes.getString(5));
+                    VariableSession.grade = lstComptes.getString(5);
+
+                    //tvPoints.setText(lstComptes.getString(6));
+                    VariableSession.Points = lstComptes.getString(6);
+
+                    //tvCredits.setText(lstComptes.getString(7));
+                    VariableSession.Credits = lstComptes.getString(7);
+
+                    VariableSession.spinnerID = spinner.getSelectedItemPosition();
 
                     String pureBase64Encoded = base.substring(base.indexOf(",")  + 1);
-
-                    byte[] imageAsBytes = Base64.decode(pureBase64Encoded.getBytes(), Base64.DEFAULT);
-                    imageView.setImageBitmap(BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length));
+                    remplirLesInformations();
 
                     //À implémenter plus tard dans le développement
                     //new Login().execute("");
