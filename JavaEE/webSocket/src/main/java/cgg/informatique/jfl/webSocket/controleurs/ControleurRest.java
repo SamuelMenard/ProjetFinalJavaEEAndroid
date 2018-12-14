@@ -1,6 +1,7 @@
 package cgg.informatique.jfl.webSocket.controleurs;
 
 import cgg.informatique.jfl.webSocket.Historique;
+import cgg.informatique.jfl.webSocket.HistoriqueCombat;
 import cgg.informatique.jfl.webSocket.Message;
 import cgg.informatique.jfl.webSocket.Reponse;
 import cgg.informatique.jfl.webSocket.dao.*;
@@ -48,19 +49,117 @@ public class ControleurRest {
     public List<Historique> retournerHistorique(@PathVariable String username){
 
         Optional<Compte> opt = compteDao.findById(username);
-        List<Historique> lstInfos = new ArrayList<>();
+        List<Historique> lstHistorique = new ArrayList<>();
 
         if (opt.isPresent()){
             Compte c = opt.get();
             // générer l'historique
-            /*List<Combat> lstMesCombats = combatDao.getTousMesCombats(c);
+            List<Examen> lstExamens = examenDao.getMyExamensOrderByDateDESC(c);
+            List<Combat> lstMesCombats = combatDao.getTousMesCombats(c);
 
-            for (Examen exam : c.getEvalues()){
+            // points et crédits
+            int points = 0;
+            int credits = 0;
 
-            }*/
+            for (int i = 0; i < lstExamens.size(); i++){
+
+                // get les dates du plus récent au plus vieux
+                Long dateCouranteExamenReussi = lstExamens.get(i).getDate();
+                Long dateProchainExamenReussi = Long.MAX_VALUE;
+
+                if ((i + 1) < lstExamens.size()){
+                    dateProchainExamenReussi = lstExamens.get(i + 1).getDate();
+                }
+
+                // créer entité historique
+
+                List<HistoriqueCombat> lstHistoriqueCombat = new ArrayList<>();
+
+                Historique historique = new Historique(lstExamens.get(i).getDate(), points,
+                        credits, lstExamens.get(i).getCeinture().getGroupe(), lstExamens.get(i).getaReussi(), lstHistoriqueCombat);
+
+                System.out.println("Date examen : " + lstExamens.get(i).getDate() + " | Points : " + points + " | Crédits : " + credits);
+
+                if (lstExamens.get(i).getaReussi()){
+                    points = 0;
+                    if (credits > 0){
+                        credits -= 10;
+                        System.out.println("Points : " + points);
+                        System.out.println("Crédits : " + credits + "(-10 -> Dernier réussi)");
+                    }
+                }
+                else{
+                    if (credits > 0){
+                        credits -= 5;
+                        System.out.println("Points : " + points);
+                        System.out.println("Crédits : " + credits + "(-5 -> dernier échoué)");
+                    }
+                }
+
+
+                // boucler dans les combats selon les dates
+                for (int y = 0; y < lstMesCombats.size(); y++){
+
+                    int pointsCombatCourantBlanc = 0;
+                    int pointsCombatCourantRouge = 0;
+
+                    if (lstMesCombats.get(y).getDate() > dateCouranteExamenReussi){
+                        if (lstMesCombats.get(y).getDate() < dateProchainExamenReussi){
+
+                            if (c.getUsername().equals(lstMesCombats.get(y).getBlanc().getUsername())){
+                                if (lstMesCombats.get(y).getPointsBlanc() > lstMesCombats.get(y).getPointsRouge()){
+                                    points += c.calculerPointsCombat(lstMesCombats.get(y).getRouge());
+                                    System.out.println("Points + : " + c.calculerPointsCombat(lstMesCombats.get(y).getRouge()));
+                                }
+                                else if (lstMesCombats.get(y).getPointsBlanc() == lstMesCombats.get(y).getPointsRouge()){
+                                    points += lstMesCombats.get(y).getPointsBlanc();
+                                    System.out.println("Points + : " + lstMesCombats.get(y).getPointsBlanc());
+                                }
+                            }
+                            else if (c.getUsername().equals(lstMesCombats.get(y).getRouge().getUsername())){
+                                if (lstMesCombats.get(y).getPointsRouge() > lstMesCombats.get(y).getPointsBlanc()){
+                                    points += c.calculerPointsCombat(lstMesCombats.get(y).getBlanc());
+                                    System.out.println("Points + : " + c.calculerPointsCombat(lstMesCombats.get(y).getBlanc()));
+                                }
+                                else if (lstMesCombats.get(y).getPointsBlanc() == lstMesCombats.get(y).getPointsRouge()){
+                                    points += lstMesCombats.get(y).getPointsRouge();
+                                    System.out.println("Points + : " + lstMesCombats.get(y).getPointsRouge());
+                                }
+                            }
+                            else if (c.getUsername().equals(lstMesCombats.get(y).getArbitre().getUsername())){
+                                credits += lstMesCombats.get(y).getCreditsArbitre();
+                                System.out.println("Crédits + : " + lstMesCombats.get(y).getCreditsArbitre());
+                            }
+
+                            // calculer les points du combat
+                            if (lstMesCombats.get(y).getPointsBlanc() > lstMesCombats.get(y).getPointsRouge()){
+                                // blanc gagne
+                                pointsCombatCourantBlanc = lstMesCombats.get(y).getBlanc().calculerPointsCombat(lstMesCombats.get(y).getRouge());
+                            }
+                            else if (lstMesCombats.get(y).getPointsRouge() > lstMesCombats.get(y).getPointsBlanc()){
+                                // rouge gagne
+                                pointsCombatCourantRouge = lstMesCombats.get(y).getRouge().calculerPointsCombat(lstMesCombats.get(y).getBlanc());
+                            }
+                            else{
+                                // égalité
+                                pointsCombatCourantBlanc = lstMesCombats.get(y).getPointsBlanc();
+                                pointsCombatCourantRouge = lstMesCombats.get(y).getPointsRouge();
+                            }
+
+                            // créer objet HistoriqueCombat
+                            HistoriqueCombat hCombat = new HistoriqueCombat(lstMesCombats.get(y).getDate(), lstMesCombats.get(y).getArbitre().getUsername(), lstMesCombats.get(y).getCreditsArbitre(),
+                                    lstMesCombats.get(y).getRouge().getUsername(), lstMesCombats.get(y).getCeintureRouge().getGroupe(), pointsCombatCourantRouge,
+                                    lstMesCombats.get(y).getBlanc().getUsername(), lstMesCombats.get(y).getCeintureBlanc().getGroupe(), pointsCombatCourantBlanc);
+
+                            historique.getLstcombats().add(hCombat);
+                        }
+                    }
+                }
+                lstHistorique.add(historique);
+            }
         }
 
-        return lstInfos;
+        return lstHistorique;
     }
 
     @GetMapping
@@ -119,6 +218,7 @@ public class ControleurRest {
                 exam.setEvalue(optEvalue.get());
                 exam.setCeinture(optEvalue.get().getGroupe());
                 examenDao.saveAndFlush(exam);
+
                 return HttpStatus.OK;
             }
         }
@@ -130,6 +230,7 @@ public class ControleurRest {
             (value = "/compte/all/username")
     public List<String> getAllComptesUsername(){
         List<String> allUsername = new ArrayList<>();
+
         for (Compte c : compteDao.findAll()){
             allUsername.add(c.getUsername());
         }
