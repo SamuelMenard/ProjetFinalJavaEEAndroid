@@ -14,9 +14,13 @@ function connexion() {
             // vider les sièges
             viderLesSieges("spectateur");
             viderLesSieges("competiteur");
+            viderLesSieges("arbitre");
 
             console.log(reponse.body.toString());
             remplirLesSieges(reponse.body.toString());
+
+            remplirLeTapis(reponse.body.toString());
+            commencerCombat(reponse.body.toString());
 
         });
 
@@ -142,7 +146,13 @@ function remplirLesSieges(listes){
 
     for (var i = 0; i < base[1].length; i++){
         if (i < 12) {
-            document.getElementById('competiteur_' + i).src = base[0][i].avatar;
+            document.getElementById('competiteur_' + i).src = base[1][i].avatar;
+        }
+    }
+
+    for (var i = 0; i < base[2].length; i++){
+        if (i < 12) {
+            document.getElementById('arbitre_' + i).src = base[2][i].avatar;
         }
     }
     /*var lstSpectateurs = JSON.parse(base[0]);
@@ -152,64 +162,25 @@ function remplirLesSieges(listes){
     console.log("Compétiteurs: " + lstCompetiteurs.toString());*/
 }
 
-function remplirLeTapis(utilisateur){
-    var arbitreDisabled = false;
-    var blancDisabled = false;
-    var rougeDisabled = false;
+function remplirLeTapis(listes){
+    var base = JSON.parse(listes);
 
-    var obj = JSON.parse(utilisateur);
-    for (var i = 0; i < obj.length; i++){
-        if (i < 3){
-
-            console.log("Courriel: " + obj[i].courriel + "Avatar: " + obj[i].avatar + "Position: " + obj[i].position + "Ajout ou Retire: " + obj[i].ajoutouretire);
-            if (obj[i].position === "arbitre"){
-                arbitreDisabled = true;
-                document.getElementById('tapis_arbitre').src = obj[i].avatar;
-            }
-            else if (obj[i].position === "blanc"){
-                blancDisabled = true;
-                document.getElementById('tapis_blanc').src = obj[i].avatar;
-            }
-            else if (obj[i].position === "rouge"){
-                rougeDisabled = true;
-                document.getElementById('tapis_rouge').src = obj[i].avatar;
-            }
-        }
+    if (base[3].length == 3){
+        document.getElementById('tapis_blanc').src = base[3][0].avatar;
+        document.getElementById('tapis_rouge').src = base[3][1].avatar;
+        document.getElementById('tapis_arbitre').src = base[3][2].avatar;
     }
-
-    $("#arbitre").prop("disabled", arbitreDisabled);
-    $("#blanc").prop("disabled", blancDisabled);
-    $("#rouge").prop("disabled", rougeDisabled);
-
-    if (arbitreDisabled && blancDisabled && rougeDisabled){
-        // commencer le combat
-        // bloquer les personnes sur le tapis
-        commencerCombat();
-    }
-    else{
-        annulerCombat();
-    }
-
 }
 function afficherMenuCompetiteur(){
     $("#groupe2").show();
 }
 
-function commencerCombat(){
-    var positionActuelle = $("#positionactuelle").val();
-    if (positionActuelle === "arbitre"){
-        $("#groupe1").hide();
-        $("#groupe2").hide();
-    }
-    else if (positionActuelle === "blanc"){
-        $("#groupe1").hide();
-        $("#groupe2").hide();
-        $("#groupe3").show();
-    }
-    else if (positionActuelle === "rouge"){
-        $("#groupe1").hide();
-        $("#groupe2").hide();
-        $("#groupe3").show();
+function commencerCombat(listes){
+    var base = JSON.parse(listes);
+    if (base[4].length == 3){
+        document.getElementById('tapis_attaque_blanc').src = base[4][0].avatar;
+        document.getElementById('tapis_attaque_rouge').src = base[4][1].avatar;
+        document.getElementById('tapis_arbitre').src = base[4][2].avatar;
     }
 }
 
@@ -252,6 +223,12 @@ function viderLesSieges(type){
     if (type === "competiteur"){
         for (var i = 0; i < 12; i++){
             document.getElementById('competiteur_' + i).src = "images/chaise.jpg";
+        }
+    }
+
+    if (type === "arbitre"){
+        for (var i = 0; i < 12; i++){
+            document.getElementById('arbitre_' + i).src = "images/chaise.jpg";
         }
     }
 
