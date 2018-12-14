@@ -119,7 +119,6 @@ public class ControleurRest {
                 exam.setEvalue(optEvalue.get());
                 exam.setCeinture(optEvalue.get().getGroupe());
                 examenDao.saveAndFlush(exam);
-
                 return HttpStatus.OK;
             }
         }
@@ -131,7 +130,6 @@ public class ControleurRest {
             (value = "/compte/all/username")
     public List<String> getAllComptesUsername(){
         List<String> allUsername = new ArrayList<>();
-
         for (Compte c : compteDao.findAll()){
             allUsername.add(c.getUsername());
         }

@@ -23,5 +23,6 @@
     <string name="strTbNomCombat">Anonyme</string>
     <string name="strTbPointsCombat">N/A</string>
     <string name="strTbCreditsCombat">N/A</string>
+    <string name="tv_Alias">Alias:</string>
 
 </resources>

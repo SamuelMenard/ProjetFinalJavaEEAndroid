@@ -23,7 +23,7 @@
         android:id="@+id/tbCeinture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="144dp"
+        android:layout_marginStart="96dp"
         android:layout_marginTop="132dp"
         android:text="Ceinture : "
         android:textSize="32sp"
@@ -34,8 +34,8 @@
         android:id="@+id/tbGrade"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="168dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginStart="96dp"
+        android:layout_marginTop="32dp"
         android:text="Grade : "
         android:textSize="32sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,8 +45,8 @@
         android:id="@+id/tbPoints"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="164dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="96dp"
+        android:layout_marginTop="28dp"
         android:text="Points : "
         android:textSize="32sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -56,8 +56,8 @@
         android:id="@+id/tbCredits"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="152dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="96dp"
+        android:layout_marginTop="20dp"
         android:text="Crédits : "
         android:textSize="32sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -72,7 +72,7 @@
         android:text="@string/strTbInfoCeinture"
         android:textSize="32sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.365"
+        app:layout_constraintHorizontal_bias="0.254"
         app:layout_constraintStart_toEndOf="@+id/tbCeinture"
         app:layout_constraintTop_toBottomOf="@+id/imageLogin" />
 
@@ -81,11 +81,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="32dp"
         android:text="@string/strTbInfoGrade"
         android:textSize="32sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.389"
+        app:layout_constraintHorizontal_bias="0.336"
         app:layout_constraintStart_toEndOf="@+id/tbGrade"
         app:layout_constraintTop_toBottomOf="@+id/tbInfoCeinture" />
 
@@ -94,11 +94,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="24dp"
         android:text="@string/strTbInfoPoints"
         android:textSize="32sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintHorizontal_bias="0.321"
         app:layout_constraintStart_toEndOf="@+id/tbPoints"
         app:layout_constraintTop_toBottomOf="@+id/tbInfoGrade" />
 
@@ -107,11 +107,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="24dp"
         android:text="@string/strTbInfoCredits"
         android:textSize="32sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.389"
+        app:layout_constraintHorizontal_bias="0.3"
         app:layout_constraintStart_toEndOf="@+id/tbCredits"
         app:layout_constraintTop_toBottomOf="@+id/tbInfoPoints" />
 
@@ -144,5 +144,27 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageLogin"
         app:layout_constraintVertical_bias="0.647" />
+
+    <TextView
+        android:id="@+id/tbAlias"
+        android:layout_width="130dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="96dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/tv_Alias"
+        android:textSize="36sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tbCredits" />
+
+    <TextView
+        android:id="@+id/tbInfoAlias"
+        android:layout_width="88dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="96dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/strTbInfoCredits"
+        android:textSize="36sp"
+        app:layout_constraintStart_toEndOf="@+id/tbAlias"
+        app:layout_constraintTop_toBottomOf="@+id/tbInfoCredits" />
 
 </android.support.constraint.ConstraintLayout>
