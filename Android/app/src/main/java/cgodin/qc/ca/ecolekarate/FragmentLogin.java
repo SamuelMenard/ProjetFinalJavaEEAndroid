@@ -91,7 +91,6 @@ public class FragmentLogin extends Fragment implements AdapterView.OnItemSelecte
             //stompPrive.brancherStompPrive();
         }
         else{
-
             connecte = false;
             //btnConnexion.setText("Établir une connexion");
             VariableSession.btnConnexion = "Établir une connexion";
